@@ -69,8 +69,14 @@ int main(int argc, char **argv){
 		//sample = ((1<<(bits_per_sample-1))-1)*(0.5*(sin(2*i*M_PI*350/sample_rate)) + 0.5*(sin(2*i*M_PI*440/sample_rate)));
 
 		//Ringtone
-		if( (i% (sample_rate*6))/sample_rate < 2){
-			sample = ((1<<(bits_per_sample-1))-1)*(0.4*(sin(2*i*M_PI*440/sample_rate)) + 0.4*(sin(2*i*M_PI*480/sample_rate)));
+	//	if( (i% (sample_rate*6))/sample_rate < 2){
+	//		sample = ((1<<(bits_per_sample-1))-1)*(0.4*(sin(2*i*M_PI*440/sample_rate)) + 0.4*(sin(2*i*M_PI*480/sample_rate)));
+	//	} else {
+	//		sample = 0;
+	//	}
+		//Busy 480 620
+		if( (2*(i%sample_rate))/sample_rate < 1){
+			sample = ((1<<(bits_per_sample-1))-1)*(0.4*(sin(2*i*M_PI*480/sample_rate)) + 0.4*(sin(2*i*M_PI*620/sample_rate)));
 		} else {
 			sample = 0;
 		}
