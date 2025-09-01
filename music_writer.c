@@ -60,12 +60,20 @@ int main(int argc, char **argv){
 
 	uint8_t audio_data[size_of_data];
 	int16_t sample;
-	float frequency1 = 440;
-	float frequency2 = 480;
-	//uint32_t samples_per_wave = sample_rate/frequency;
 	for(uint32_t i=0; i<no_of_samples;i++){
 
-		sample = ((1<<(bits_per_sample-1))-1)*(0.5*(sin(2*i*M_PI*frequency1/sample_rate)) + 0.5*(sin(2*i*M_PI*frequency2/sample_rate)));
+		// A note
+		//sample = ((1<<(bits_per_sample-1))-1)* 0.7 *(sin(2*i*M_PI*440/sample_rate));
+
+		// Dial tone
+		//sample = ((1<<(bits_per_sample-1))-1)*(0.5*(sin(2*i*M_PI*350/sample_rate)) + 0.5*(sin(2*i*M_PI*440/sample_rate)));
+
+		//Ringtone
+		if( (i% (sample_rate*6))/sample_rate < 2){
+			sample = ((1<<(bits_per_sample-1))-1)*(0.4*(sin(2*i*M_PI*440/sample_rate)) + 0.4*(sin(2*i*M_PI*480/sample_rate)));
+		} else {
+			sample = 0;
+		}
 
 		for(int j = 0; j<bit_channel_product; j++){
 			audio_data[bit_channel_product*i + j] = (0xFF & (sample>>(8*j)));
